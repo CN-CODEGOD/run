@@ -1,0 +1,13 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>new-script.newscript</T>
+      <T>System.Object</T>
+    </TN>
+    <ToString>new-script.newscript</ToString>
+    <Props>
+      <S N="name">setu</S>
+      <S N="scriptBlock">_x000A__x000A_$page = (Invoke-webrequest "https://www.jiligamefun.com/category/photo")_x000A__x000A_$page.images |where-Object {$_.alt  -notlike  "AL6"}|foreach-object { _x000A_$title = $_.alt_x000A__x000A_$url = ($page.links | Where-Object { $_.outerhtml -like "*$title*"} ).href|Select-Object -first 1_x000A__x000A_write-host "$url" "|" "$title "  _x000A_}_x000A__x000A_</S>
+    </Props>
+  </Obj>
+</Objs>

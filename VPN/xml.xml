@@ -1,0 +1,13 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>new-script.newscript</T>
+      <T>System.Object</T>
+    </TN>
+    <ToString>new-script.newscript</ToString>
+    <Props>
+      <S N="name">VPN</S>
+      <S N="scriptBlock"> $a = (Get-Process).name;if ($a.Contains("Clash for Windows")){Stop-Process -Name 'Clash for Windows';start "f:\zz_v2rayN-With-Core-SelfContained (2)\zz_v2rayN-With-Core-SelfContained\v2rayN.exe" } elseif ($a.Contains("v2rayN")) {Stop-Process -Name v2rayN;start "f:\program files\Clash.for.Windows-0.20.16-ikuuu\Clash for Windows.exe"} else {start "f:\zz_v2rayN-With-Core-SelfContained (2)\zz_v2rayN-With-Core-SelfContained\v2rayN.exe"}</S>
+    </Props>
+  </Obj>
+</Objs>
