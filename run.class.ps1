@@ -1,15 +1,37 @@
 
-
 using namespace system.xml.linq
 
-Class scriptNames : System.Management.Automation.IValidateSetValuesGenerator {
-    [string[]] GetValidValues() {
-   
-$scriptNames=(import-xml $PSScriptRoot\xml\script.xml).name
-        return [string[]] $scriptNames
-    }
+class game {
+    [string]$name
+    [string]$gamepath
+    hidden [string]$path = "$psscriptroot\xml\game.xml"
 }
 
+class folderpath {
+    [string]$folderpath
+    [string]$name
+    hidden [string]$path = "$psscriptroot\xml\folderpath.xml"
+    [void] DoInit(    [pscustomobject]$pscustomobject){
+        $pscustomobjectName= (($pscustomobject)|Get-Member -Type NoteProperty ).Name
+        foreach($propertyName in $pscustomobjectName ) {
+
+           $this.$Propertyname= $pscustomobject.$Propertyname
+        }
+    }
+    script ($pscustomobject){
+    $this.doinit($pscustomobject)
+    }
+    [object] save(){
+
+        $object=[XElement]::new("object",
+        [XAttribute]::new("name","folderpath"),
+        [XElement]::new("property",[XAttribute]::new("name","folderpath"),$this.folderpath),
+        [XElement]::new("property",[XAttribute]::new("name","name"),$this.name)
+
+        )
+        return $object.ToString()   
+    }
+}
 
 class script {      
     [string]$scriptblock
@@ -28,14 +50,14 @@ hidden [string]$path = "$psscriptroot\xml\scripts.xml"
         }
     }
 
-script ($pscustomobject){
+script ($pscustomobject){z
 $this.doinit($pscustomobject)
 }
 #3.save method 
 [object] save(){
 
     $object=[XElement]::new("object",
-    [XAttribute]::new("name","script"),
+    [XAttribute]::new("type ","script"),
     [XElement]::new("property",[XAttribute]::new("name","scriptblock"),$this.scriptblock),
     [XElement]::new("property",[XAttribute]::new("name","name"),$this.name)
 
@@ -53,7 +75,7 @@ class clipboard {
     
 [string]$clipboard
 [string]$name
-hidden [string]$path="$psscriptroot\xml\clipboard.xml"
+hidden [string]$path="c:\users\adminnistrator\my-modules\run\xml\clipboard.xml"
 [void] DoInit(    [pscustomobject]$pscustomobject){
     $pscustomobjectName= (($pscustomobject)|Get-Member -Type NoteProperty ).Name
     foreach($propertyName in $pscustomobjectName ){ 
@@ -69,7 +91,7 @@ $this.doinit($pscustomobject)
 [object] save(){
 
     $object=[XElement]::new("object",
-    [XAttribute]::new("name","clipboard"),
+    [XAttribute]::new("type","clipboard"),
     [XElement]::new("property",[XAttribute]::new("name","clipboard"),$this.clipboard),
     [XElement]::new("property",[XAttribute]::new("name","name"),$this.name)
 
@@ -78,36 +100,27 @@ $this.doinit($pscustomobject)
 }
 
 
+
+
 }
 
 
 
-class shell {
-    [string]$shell
-    [string]$namle
-    hidden[string]$path="$Psscriptroot\xml\shell.xml"
 
-[void] DoInit(    [pscustomobject]$pscustomobject){
-    $pscustomobjectName= (($pscustomobject)|Get-Member -Type NoteProperty ).Name
-    foreach($propertyName in $pscustomobjectName ){
-
-       $this.$Propertyname= $pscustomobject.$Propertyname
-    }
+# Create a PSCustomObject with properties for clipboard
+$clipboardObject = [PSCustomObject]@{
+    clipboard = "Sample clipboard text"
+    name = "SampleName"
 }
 
-script ($pscustomobject){
-$this.doinit($pscustomobject)
-}
+# Create an instance of the clipboard class
+$clipboardInstance = [clipboard]::new()
 
-[object] save(){
+# Initialize the instance with the PSCustomObject
+$clipboardInstance.DoInit($clipboardObject)
 
-    $object=[XElement]::new("object",
-    [XAttribute]::new("name","shell"),
-    [XElement]::new("property",[XAttribute]::new("name","shell"),$this.shell),
-    [XElement]::new("property",[XAttribute]::new("name","name"),$this.name)
+# Save the instance to XML format
+$clipboardXml = $clipboardInstance.save()
 
-    )
-    return $object.ToString()   
-}
-
-}   
+# Output the XML
+$clipboardXml

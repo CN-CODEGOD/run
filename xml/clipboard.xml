@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<objects>
+  <object type="clipboard" id="1">
+    <property name="clipboard">Sample clipboard text</property>
+    <property name="name">SampleName</property>
+  </object>
+  <object type="clipboard" id="2">
+  <property name="clipboard">Sample clipboard text</property>
+  <property name="name">SampleName</property>
+</object>
+</objects>
