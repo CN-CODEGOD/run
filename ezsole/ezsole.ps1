@@ -81,3 +81,8 @@ else {
             $Shortcut.Save()
        
     }
+
+
+    function getwallpaper {
+  & "G:\Program Files\steam\steam\steamapps\common\wallpaper_engine\wallpaper64.exe" -control getWallpaper
+    }
